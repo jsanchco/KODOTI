@@ -10,7 +10,7 @@
 
     #endregion
 
-    [Route("stocks")]
+    [Route("v1/stocks")]
     [ApiController]
     public class ProductInStockController : ControllerBase
     {

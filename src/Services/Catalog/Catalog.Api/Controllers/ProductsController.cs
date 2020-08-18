@@ -16,7 +16,7 @@
 
     #endregion
 
-    [Route("products")]
+    [Route("v1/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {

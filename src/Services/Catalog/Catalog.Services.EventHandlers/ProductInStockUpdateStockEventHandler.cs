@@ -6,6 +6,7 @@
     using Catalog.Domain;
     using Catalog.Persistence.Database;
     using Catalog.Services.EventHandlers.Commands;
+    using Catalog.Services.EventHandlers.Exceptions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
@@ -47,14 +48,14 @@
                     {
                         _logger.LogError($"--- This Product: {item.ProductId} - doesn't exist");
 
-                        throw new Exception($"This Product: {item.ProductId} - doesn't exist");
+                        throw new ProductInStockUpdateStockCommandException($"This Product: {item.ProductId} - doesn't exist");
                     }
 
                     if (item.Stock > entry.Stock)
                     {
                         _logger.LogError($"--- Product {entry.ProductId} - doesn´t have enough stock");
 
-                        throw new Exception($"Product {entry.ProductId} - doesn´t have enough stock");
+                        throw new ProductInStockUpdateStockCommandException($"Product {entry.ProductId} - doesn´t have enough stock");
                     }
 
                     entry.Stock -= item.Stock;

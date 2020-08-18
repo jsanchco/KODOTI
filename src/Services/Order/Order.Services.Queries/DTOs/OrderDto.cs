@@ -1,0 +1,28 @@
+﻿namespace Order.Services.Queries.DTOs
+{
+    #region Using
+
+    using System;
+    using System.Collections.Generic;
+    using static Order.Common.Enums;
+
+    #endregion
+
+    public class OrderDto
+    {
+        public int Id { get; set; }
+        public string OrderNumber
+        {
+            get
+            {
+                return CreatedAt.Year + "-" + Id.ToString().PadLeft(6, '0');
+            }
+        }
+        public OrderStatus Status { get; set; }
+        public OrderPayment PaymentType { get; set; }
+        public int ClientId { get; set; }
+        public IEnumerable<OrderDetailDto> Items { get; set; } = new List<OrderDetailDto>();
+        public DateTime CreatedAt { get; set; }
+        public decimal Total { get; set; }
+    }
+}
