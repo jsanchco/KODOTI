@@ -11,6 +11,8 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Order.Persistence.Database;
+using Order.Service.Proxies;
+using Order.Service.Proxies.Catalog;
 using Order.Services.Queries;
 using System.Reflection;
 
@@ -42,6 +44,20 @@ namespace Order.Api
                         .AddDbContextCheck<ApplicationDbContext>(typeof(ApplicationDbContext).Name);
 
             services.AddHealthChecksUI();
+
+            // Api Urls
+            services.Configure<ApiUrls>(
+                opts => Configuration.GetSection("ApiUrls").Bind(opts)
+            );
+
+            // Azure Service Bus
+            services.Configure<AzureServiceBus>(
+                opts => Configuration.GetSection("AzureServiceBus").Bind(opts)
+            );
+
+            // Proxies
+            //services.AddHttpClient<ICatalogProxy, CatalogHttpProxy>();
+            services.AddTransient<ICatalogProxy, CatalogQueueProxy>();
 
             // Event handlers
             services.AddMediatR(Assembly.Load("Order.Service.EventHandlers"));

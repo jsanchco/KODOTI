@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\..\Common\Common.Logging\Common.Logging.csproj" />
     <ProjectReference Include="..\..\Common\Service.Common.Collection\Service.Common.Collection.csproj" />
     <ProjectReference Include="..\Order.Service.EventHandlers\Order.Service.EventHandlers.csproj" />
+    <ProjectReference Include="..\Order.Service.Proxies\Order.Service.Proxies.csproj" />
     <ProjectReference Include="..\Order.Services.Queries\Order.Services.Queries.csproj" />
   </ItemGroup>
 
