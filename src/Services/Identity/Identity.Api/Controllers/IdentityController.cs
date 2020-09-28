@@ -55,7 +55,7 @@
                     return BadRequest("Access denied");
                 }
 
-                return Ok();
+                return Ok(result);
             }
 
             return BadRequest();

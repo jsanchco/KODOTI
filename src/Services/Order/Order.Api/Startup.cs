@@ -56,7 +56,6 @@ namespace Order.Api
             );
 
             // Proxies
-            //services.AddHttpClient<ICatalogProxy, CatalogHttpProxy>();
             services.AddTransient<ICatalogProxy, CatalogQueueProxy>();
 
             // Event handlers

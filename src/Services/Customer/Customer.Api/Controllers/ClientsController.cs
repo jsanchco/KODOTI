@@ -6,6 +6,8 @@
     using Customer.Services.Queries;
     using Customer.Services.Queries.DTOs;
     using MediatR;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Service.Common.Collection;
@@ -16,6 +18,7 @@
 
     #endregion
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("v1/clients")]
     public class ClientsController : ControllerBase
@@ -38,14 +41,14 @@
         [HttpGet]
         public async Task<DataCollection<ClientDto>> GetAll(int page = 1, int take = 10, string ids = null)
         {
-            IEnumerable<int> products = null;
+            IEnumerable<int> clients = null;
 
             if (!string.IsNullOrEmpty(ids))
             {
-                products = ids.Split(",").Select(x => Convert.ToInt32(x));
+                clients = ids.Split(",").Select(x => Convert.ToInt32(x));
             }
 
-            return await _clientQueryService.GetAllAsync(page, take, products);
+            return await _clientQueryService.GetAllAsync(page, take, clients);
         }
 
         // clients/1

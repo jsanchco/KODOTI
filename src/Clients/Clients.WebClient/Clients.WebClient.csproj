@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Gateways\Api.Gateway.WebClient.Proxy\Api.Gateway.WebClient.Proxy.csproj" />
+    <ProjectReference Include="..\..\Gateways\Api.Gateways.Proxies\Api.Gateways.Proxies.csproj" />
+    <ProjectReference Include="..\..\Services\Common\Service.Common.Collection\Service.Common.Collection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Api.Gateway.Models">
+      <HintPath>Packages\Api.Gateway.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Api.Gateway.WebClient.Proxy">
+      <HintPath>Packages\Api.Gateway.WebClient.Proxy.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Proxies\" />
+  </ItemGroup>
+
+
+
+</Project>

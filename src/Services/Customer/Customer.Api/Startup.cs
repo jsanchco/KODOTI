@@ -5,6 +5,7 @@ using Customer.Persistence.Database;
 using Customer.Services.Queries;
 using HealthChecks.UI.Client;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
+using System.Text;
 
 #endregion
 
@@ -54,6 +57,24 @@ namespace Customer.Api
             services.AddTransient<IClientQueryService, ClientQueryService>();
 
             services.AddControllers();
+
+            // Add Authentication
+            var secretKey = Encoding.ASCII.GetBytes(
+                Configuration.GetValue<string>("SecretKey")
+            );
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             // Add Swagger
             services.AddSwaggerGen(s =>
