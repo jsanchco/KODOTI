@@ -1,3 +1,4 @@
+using Api.Gateway.Proxy;
 using Api.Gateway.WebClient.Config;
 using Common.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,6 +27,8 @@ namespace Api.Gateway.WebClient
         {
             services.AddAppsettingBinding(Configuration)
                 .AddProxiesRegistration(Configuration);
+
+            services.AddTransient<ITestService, TestService>();
 
             services.AddControllers();
 

@@ -1,4 +1,5 @@
 using Api.Gateway.Proxies;
+using Api.Gateway.Proxy;
 using Api.Gateway.WebClient.Proxy.Config;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +27,7 @@ namespace Client.WebClient
             services.AddSingleton(new ApiGatewayUrl(Configuration.GetValue<string>("ApiGatewayUrl")));
             services.AddHttpContextAccessor();
 
+            services.Configure<ApiUrls>(opts => Configuration.GetSection("ApiUrls").Bind(opts));
             services.AddHttpClient<IOrderProxy, OrderProxy>();
             services.AddHttpClient<ICatalogProxy, CatalogProxy>();
             services.AddHttpClient<ICustomerProxy, CustomerProxy>();
